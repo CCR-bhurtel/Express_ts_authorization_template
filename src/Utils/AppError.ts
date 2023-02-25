@@ -1,3 +1,5 @@
+import { CastError } from 'mongoose';
+
 export type ErrorType = {
     message: string;
     statusCode: number;

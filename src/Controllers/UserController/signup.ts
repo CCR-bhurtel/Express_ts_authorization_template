@@ -9,7 +9,7 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
         createSendToken(user, res);
     } catch (err) {
         console.log(err);
-        res.status(500).json(err);
+       return res.status(500).json(err);
     }
 };
 

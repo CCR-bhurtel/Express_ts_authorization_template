@@ -3,7 +3,6 @@ import { ErrorType } from '../../Utils/AppError';
 class ErrorController {
     constructor() {}
     controller = (err: ErrorType, req: Request, res: Response, next: NextFunction) => {
-        const { message } = err;
         if (req.originalUrl.startsWith('/api')) {
             return res.status(err.statusCode || 500).json({
                 status: err.status || 'error',

@@ -31,9 +31,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.userSchema = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const userSchema = new mongoose_1.Schema({
+exports.userSchema = new mongoose_1.Schema({
     username: {
         type: String,
         required: [true, 'Please provide valid username'],
@@ -55,12 +56,12 @@ const userSchema = new mongoose_1.Schema({
         },
     },
 });
-userSchema.method('comparePassword', function (original, given) {
+exports.userSchema.methods.comparePassword = function (original, given) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield bcrypt_1.default.compare(original, given);
     });
-});
-userSchema.pre('save', function (next) {
+};
+exports.userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         const password = yield bcrypt_1.default.hash(this.password, 15);
         this.password = password;
@@ -68,5 +69,5 @@ userSchema.pre('save', function (next) {
         next();
     });
 });
-const User = mongoose_1.default.model('User', userSchema);
+const User = mongoose_1.default.model('User', exports.userSchema);
 exports.default = User;

@@ -17,11 +17,10 @@ const createSendToken = (user, res) => {
         if (process.env.NODE_ENV === 'production')
             cookieOptions.httpOnly = true;
         res.cookie('Authorization', token, cookieOptions);
-        res.status(200).json(Object.assign(Object.assign({}, user._doc), { token }));
+        return res.status(200).json(Object.assign(Object.assign({}, user._doc), { token }));
     }
     catch (err) {
-        console.log(err);
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 exports.default = createSendToken;

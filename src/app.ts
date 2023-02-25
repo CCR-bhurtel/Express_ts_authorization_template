@@ -5,6 +5,8 @@ import cors from 'cors';
 import userRoutes from './Routes/userRoutes';
 import cookieSession from 'cookie-session';
 import path from 'path';
+import ErrorControllerDev from './Controllers/ErrorControllers/DevErrorController';
+import ErrorControllerProd from './Controllers/ErrorControllers/ProdErrorController';
 
 const app = express();
 
@@ -27,5 +29,9 @@ app.use('/api/users', userRoutes);
 app.get('/dashboard', (req: Request, res: Response) => {
     res.render('dashboard.pug');
 });
-
+if (process.env.NODE_ENV === 'development') {
+    app.use(new ErrorControllerDev().controller);
+} else {
+    app.use(new ErrorControllerProd().controller);
+}
 export default app;

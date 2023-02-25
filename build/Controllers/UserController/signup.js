@@ -22,7 +22,7 @@ const signup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
     }
     catch (err) {
         console.log(err);
-        res.status(500).json(err);
+        return res.status(500).json(err);
     }
 });
 exports.default = signup;

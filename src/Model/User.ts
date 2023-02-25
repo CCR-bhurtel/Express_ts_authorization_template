@@ -9,15 +9,13 @@ export interface UserType {
     confirmPassword?: string;
 }
 
-interface UserMethods {
-    comparePassword: (original: string, given: string) => boolean;
+export interface UserMethods {
+    comparePassword: (original: string, given: string) => Promise<boolean>;
 }
 
-interface UserModel extends Model<UserType, {}, UserMethods> {
-    comparePassword: (providedPassword: string) => boolean;
-}
+export interface UserModel extends Model<UserType, {}, UserMethods> {}
 
-const userSchema = new Schema<UserType, UserModel, UserMethods>({
+export const userSchema = new Schema<UserType, UserModel, UserMethods>({
     username: {
         type: String,
         required: [true, 'Please provide valid username'],
@@ -40,9 +38,9 @@ const userSchema = new Schema<UserType, UserModel, UserMethods>({
     },
 });
 
-userSchema.method('comparePassword', async function (original: string, given: string) {
+userSchema.methods.comparePassword = async function (original: string, given: string) {
     return await bcrypt.compare(original, given);
-});
+};
 
 userSchema.pre('save', async function (next) {
     const password = await bcrypt.hash(this.password, 15);

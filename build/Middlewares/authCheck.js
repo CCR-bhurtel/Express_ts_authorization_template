@@ -18,7 +18,7 @@ const User_1 = __importDefault(require("../Model/User"));
 const authCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const authToken = (0, parseToken_1.default)(req);
     if (!authToken) {
-        res.status(403).json({ message: 'Error authenticating' });
+        return res.status(403).json({ message: 'Error authenticating' });
     }
     if (authToken) {
         const decodedPayload = jsonwebtoken_1.default.verify(authToken, process.env.JWT_SECRET);

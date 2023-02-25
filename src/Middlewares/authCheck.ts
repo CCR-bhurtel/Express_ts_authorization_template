@@ -8,7 +8,7 @@ const authCheck = async (req: any, res: Response, next: NextFunction) => {
     const authToken: string | null = parseToken(req);
 
     if (!authToken) {
-        res.status(403).json({ message: 'Error authenticating' });
+       return res.status(403).json({ message: 'Error authenticating' });
     }
     if (authToken) {
         const decodedPayload: any = jwt.verify(authToken, process.env.JWT_SECRET as string);

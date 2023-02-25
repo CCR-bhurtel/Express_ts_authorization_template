@@ -3,7 +3,7 @@ import { UserType } from '../Model/User';
 import jwt from 'jsonwebtoken';
 import { Document } from 'mongoose';
 
-const createSendToken = (user: any, res: Response): void => {
+const createSendToken = (user: any, res: Response) => {
     try {
         const token: string = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
             expiresIn: process.env.JWT_EXPIRES_IN as string,
@@ -16,10 +16,9 @@ const createSendToken = (user: any, res: Response): void => {
         if (process.env.NODE_ENV === 'production') cookieOptions.httpOnly = true;
 
         res.cookie('Authorization', token, cookieOptions);
-        res.status(200).json({ ...user._doc, token });
+        return res.status(200).json({ ...user._doc, token });
     } catch (err) {
-        console.log(err);
-        res.status(400).json(err);
+        return res.status(400).json(err);
     }
 };
 
