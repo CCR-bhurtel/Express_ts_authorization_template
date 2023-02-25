@@ -1,9 +1,10 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 
 import cors from 'cors';
 import userRoutes from './Routes/userRoutes';
 import cookieSession from 'cookie-session';
+import path from 'path';
 
 const app = express();
 
@@ -15,10 +16,16 @@ app.use(
     })
 );
 
+app.use(express.static(path.join(__dirname, '../public')));
+
+app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
 app.use('/api/users', userRoutes);
+app.get('/dashboard', (req: Request, res: Response) => {
+    res.render('dashboard.pug');
+});
 
 export default app;
