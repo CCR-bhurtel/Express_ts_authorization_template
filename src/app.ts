@@ -7,6 +7,7 @@ import cookieSession from 'cookie-session';
 import path from 'path';
 import ErrorControllerDev from './Controllers/ErrorControllers/DevErrorController';
 import ErrorControllerProd from './Controllers/ErrorControllers/ProdErrorController';
+import authRoute from './Routes/authRoutes';
 
 const app = express();
 
@@ -25,8 +26,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
+app.use('/auth', authRoute);
 app.use('/api/users', userRoutes);
-app.get('/dashboard', (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
     res.render('dashboard.pug');
 });
 if (process.env.NODE_ENV === 'development') {

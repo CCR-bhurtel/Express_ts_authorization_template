@@ -129,7 +129,7 @@ header nav {
 header nav a {
     line-height: 150px;
     margin-left: 20px;
-    color: #fcfcfc;
+    color: #fd5559;
     font-weight: 300;
     font-size: 1em;
     -webkit-transition: all 0.3s;
@@ -140,7 +140,7 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #fd5559;
+    color: #fcfcfc;
 }
 
 header.smaller {
