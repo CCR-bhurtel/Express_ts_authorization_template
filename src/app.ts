@@ -28,6 +28,7 @@ app.use(cors());
 
 app.use('/auth', authRoute);
 app.use('/api/users', userRoutes);
+app.use('/api/company')
 app.get('/', (req: Request, res: Response) => {
     res.render('dashboard.pug');
 });
